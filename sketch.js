@@ -2,14 +2,20 @@
 // Anjana Samarasinghe
 // 14-09-2023
 
+//spawn points
+//power up locations 
+
 let radius;
+
+let powerup; 
 
 let player; 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   radius = width;
-  player = new Player();  
+  player = new Player();
+  powerup = new Powerup; 
 }
 
 function draw() {
