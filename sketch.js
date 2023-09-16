@@ -11,11 +11,18 @@ let powerup;
 
 let player; 
 
+let powerup_x; 
+
+let powerup_y;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   radius = width;
   player = new Player();
-  powerup = new Powerup; 
+  powerup = new Powerup;
+  powerup_x = random(width, height);
+  powerup_y = random(width, height);
+
 }
 
 function draw() {
