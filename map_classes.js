@@ -1,7 +1,9 @@
 class Player {
-  constructor() {
-    this.x = 0;
-    this.y = 0; 
+  constructor({position, velocity}) {
+    this.x = position.x;
+    this.y = position.y;
+    this.dx = velocity.x; 
+    this.dy = velocity.y; 
   }
 
   display() {
@@ -10,7 +12,7 @@ class Player {
   }
 
   movement() {
-    
+
   }
 }
 

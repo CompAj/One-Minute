@@ -15,7 +15,17 @@ let storm;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   radius = width;
-  player = new Player(); 
+  player = new Player({
+    position:{
+      x: 0,
+      y: 0
+    },
+
+    velocity: {
+      x: 0,
+      y: 0,
+    }
+  }); 
   storm = new Storm(width,height);
 }
 
@@ -30,3 +40,6 @@ function draw() {
 }
 
 
+function distance_to_storm(){
+  
+}
