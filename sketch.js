@@ -5,30 +5,31 @@
 //spawn points
 //power up locations 
 
+
+
 let radius;
-
-let powerup; 
-
-let player; 
 
 let powerup_x; 
 
 let powerup_y;
 
+let player = new Person(); 
+let powerup = new Power(); 
+
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   radius = width;
-  player = new Player();
-  powerup = new Powerup;
   powerup_x = random(width, height);
   powerup_y = random(width, height);
 
 }
 
+
 function draw() {
   background(220); 
   storm(radius, width, height);
-
 
   if (radius <= 200){
     radius = 200

@@ -1,15 +1,12 @@
-class Player {
-    constructor(x,y) {
-        this.x = x; 
-        this.y = y; 
-
+class Person {
+    constructor() {
+  
     }
-}
-
-
-class Powerup {
-    constructor(x,y) {
-        this.x = x; 
-        this.y = y; 
+  };
+  
+  
+  class Power {
+    constructor() {
+        
     }
-}
+  }; 
