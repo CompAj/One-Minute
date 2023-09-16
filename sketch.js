@@ -3,6 +3,8 @@ class Player {
     this.health = 60;
     this.pos = createVector(0, 0);
     this.vel = createVector(0, 0);
+    this.direction = createVector(0, 0);
+    this.acceleration = 1;
     this.topSpeed = 5;
   }
   
@@ -15,29 +17,28 @@ class Player {
   }
   
   update() {
-    this.pos.add(this.vel)
+    if (this.direction.x === 0 && this.direction.y === 0) {
+      if (this.vel.mag() >= this.acceleration) {
+        this.vel.setMag(this.vel.mag() - this.acceleration);
+      }
+      else {
+        this.vel.set(0);
+      }
+    }
+
+    else {
+      //realistic physics movement in the desired direction
+      this.vel.x += this.acceleration*this.direction.x;
+      this.vel.y += this.acceleration*this.direction.y;
+      this.vel = this.vel.limit(this.topSpeed);
+    }
+
+    this.pos.add(this.vel);
+
   }
 
   checkInput() {
-    if (keyIsDown(87) && ! keyIsDown(83)) { //w
-      this.vel.y = -this.topSpeed;
-    }
-    else if (keyIsDown(83) && ! keyIsDown(87)) { //s
-      this.vel.y = this.topSpeed;
-    }
-    else {
-      this.vel.y = 0;
-    }
-
-    if (keyIsDown(65) && ! keyIsDown(68)) { //w
-      this.vel.x = -this.topSpeed;
-    }
-    else if (keyIsDown(68) && ! keyIsDown(65)) { //s
-      this.vel.x = this.topSpeed;
-    }
-    else {
-      this.vel.x = 0;
-    } 
+    this.direction.set(int(keyIsDown(68)) - int(keyIsDown(65)), int(keyIsDown(83)) - int(keyIsDown(87)));
   }
 }
 
@@ -67,3 +68,4 @@ function tickAllHealth() {
 }
 
 let players = [];
+
