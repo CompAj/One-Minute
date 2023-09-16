@@ -13,8 +13,7 @@ let powerup_x;
 
 let powerup_y;
 
-let player = new Person(); 
-let powerup = new Power(); 
+let player = new Player(); 
 
 
 
@@ -29,7 +28,10 @@ function setup() {
 
 function draw() {
   background(220); 
-  storm(radius, width, height);
+  // storm(radius, width, height);
+  player.movement(); 
+  player.display(); 
+
 
   if (radius <= 200){
     radius = 200
