@@ -3,7 +3,12 @@ class Player {
     this.x = position.x;
     this.y = position.y;
     this.dx = velocity.x; 
-    this.dy = velocity.y; 
+    this.dy = velocity.y;
+
+    this.movingRight = false;
+    this.movingLeft = false;
+    this.movingUp = false;
+    this.movingDown = false;
   }
 
   display() {
@@ -12,7 +17,23 @@ class Player {
   }
 
   movement() {
+  
+    
+  }
 
+  update() {
+    if (this.movingRight) {
+      this.x += this.dx;
+    }
+    if (this.movingLeft) {
+      this.x -= this.dx;
+    }
+    if (this.movingUp) {
+      this.y -= this.dy;
+    }
+    if (this.movingDown) {
+      this.y += this.dy;
+    }
   }
 }
 

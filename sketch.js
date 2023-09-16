@@ -22,8 +22,8 @@ function setup() {
     },
 
     velocity: {
-      x: 0,
-      y: 0,
+      x: 3,
+      y: 3,
     }
   }); 
   storm = new Storm(width,height);
@@ -32,7 +32,8 @@ function setup() {
 
 function draw() {
   background(220); 
-  player.movement(); 
+  player.movement();
+  player.update();
   player.display();
   storm.storm_check(); 
   storm.shrink(); 
@@ -41,5 +42,35 @@ function draw() {
 
 
 function distance_to_storm(){
-  
+
+}
+
+function keyPressed() {
+  if (key == 'w') {
+    player.movingUp = true;
+  }
+  if (key == 'a') {
+    player.movingLeft = true;
+  }
+  if (key == 's') {
+    player.movingDown = true;
+  }
+  if (key == 'd') {
+    player.movingRight = true;
+  }
+}
+
+function keyReleased() {
+  if (key == 'w') {
+    player.movingUp = false;
+  }
+  if (key == 'a') {
+    player.movingLeft = false;
+  }
+  if (key == 's') {
+    player.movingDown = false;
+  }
+  if (key == 'd') {
+    player.movingRight = false;
+  }
 }
