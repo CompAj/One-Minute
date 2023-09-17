@@ -19,36 +19,23 @@ class Player {
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 
-  boundry() {
-    if (this.movingRight && this.x + this.r < width) {
-        this.x += this.dx;
-    }
-    if (this.movingLeft && this.x - this.r > 0) {
-        this.x -= this.dx;
-    }
-    if (this.movingUp && this.y - this.r > 0) {
-        this.y -= this.dy;
-    }
-    if (this.movingDown && this.y + this.r < height) {
-        this.y += this.dy;
-    }
-}
 
 
   update() {
 
-    if (this.movingRight) {
-      this.x += this.dx;
-    }
-    if (this.movingLeft) {
-      this.x -= this.dx;
-    }
-    if (this.movingUp) {
-      this.y -= this.dy;
-    }
-    if (this.movingDown) {
-      this.y += this.dy;
-    }
+      if (this.movingRight && this.x + this.r < width) {
+        this.x += this.dx;
+      }
+      if (this.movingLeft && this.x - this.r > 0) {
+          this.x -= this.dx;
+      }
+      if (this.movingUp && this.y - this.r > 0) {
+          this.y -= this.dy;
+      }
+      if (this.movingDown && this.y + this.r < height) {
+          this.y += this.dy;
+      }
+    
   }
 }
 
@@ -66,17 +53,20 @@ class Storm {
     this.x = position.x; 
     this.y = position.y; 
     this.r = radius;
+    this.red = 255;
+    this.green = 255; 
+    this.blue = 255; 
   }
 
   display() {
-    stroke(255, 0, 0);
+    stroke(random(0,this.red), random(0,this.green), random(0,this.blue));
     fill(255, 0, 0, 0);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 
   shrink() {
     if (this.r > 100){
-      this.r -= 0.5; 
+      this.r -= 1; 
     }
   }
 }

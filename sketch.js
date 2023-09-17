@@ -17,8 +17,8 @@ function setup() {
   radius = width;
   player = new Player({
     position:{
-      x: 0,
-      y: 0
+      x: random(1,width-1),
+      y: random(1, height),
     },
 
     velocity: {
@@ -37,7 +37,7 @@ function setup() {
       x: width / 2,  
       y: height / 2,
     },
-    radius: 1000
+    radius: width
   });
   
 }
@@ -45,14 +45,31 @@ function setup() {
 
 function draw() {
   background(220);
-  
+  if (player.movingRight && player.x + player.r < width) {
+    player.x += player.dx;
+  }
+  if (player.movingLeft && player.x - player.r > 0) {
+      player.x -= player.dx;
+  }
+  if (player.movingUp && player.y - player.r > 0) {
+      player.y -= player.dy;
+  }
+  if (player.movingDown && player.y + player.r < height) {
+      player.y += player.dy;
+  }
+
+
+
+
   distance_to_storm(); 
-  player.boundry(); 
   player.display();
   storm.display();
   storm.shrink();
   player.update();
   print(player.hp);
+
+
+
 }
 
 
