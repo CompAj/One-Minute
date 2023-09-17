@@ -14,8 +14,11 @@ let bgImage;
 
 
 
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+
   radius = width;
   bgImage = loadImage("grass.png")
   player = new Player({
@@ -56,7 +59,15 @@ function setup() {
 
 function draw() {
   background(220);
-  
+
+
+
+
+
+
+
+
+
 
   if (player.movingRight && player.x + player.r < width) {
     player.x += player.dx;
@@ -71,8 +82,9 @@ function draw() {
       player.y += player.dy;
   }
 
-
+  
   drawTiledBackground();
+
 
   distance_to_storm(); 
   player.display();
@@ -85,6 +97,10 @@ function draw() {
 
 
 }
+
+
+
+
 
 function drawTiledBackground() {
   let tileWidth = bgImage.width;
