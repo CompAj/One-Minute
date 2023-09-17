@@ -15,7 +15,7 @@ class Player {
 
   display() {
     noStroke(); 
-    fill("green")
+    fill("red")
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 

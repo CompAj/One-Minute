@@ -9,13 +9,15 @@
 
 let player;
 let storm;
-let powerups; 
+let powerups;
+let bgImage;
 
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   radius = width;
+  bgImage = loadImage("grass.png")
   player = new Player({
     position:{
       x: random(1,width-1),
@@ -54,6 +56,8 @@ function setup() {
 
 function draw() {
   background(220);
+  
+
   if (player.movingRight && player.x + player.r < width) {
     player.x += player.dx;
   }
@@ -68,7 +72,7 @@ function draw() {
   }
 
 
-
+  drawTiledBackground();
 
   distance_to_storm(); 
   player.display();
@@ -79,10 +83,19 @@ function draw() {
 
 
 
+
 }
 
+function drawTiledBackground() {
+  let tileWidth = bgImage.width;
+  let tileHeight = bgImage.height;
 
-
+  for (let x = 0; x < width; x += tileWidth) {
+    for (let y = 0; y < height; y += tileHeight) {
+      image(bgImage, x, y);
+    }
+  }
+}
 
 function distance_to_storm(){
   let distance = dist(player.x, player.y, storm.x, storm.y);
@@ -121,4 +134,5 @@ function keyReleased() {
     player.movingRight = false;
   }
 }
+
 
