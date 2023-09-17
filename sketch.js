@@ -17,9 +17,6 @@ let bgImage;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
-
-  radius = width;
   bgImage = loadImage("grass.png")
   player = new Player({
     position:{
@@ -59,13 +56,6 @@ function setup() {
 
 function draw() {
   background(220);
-
-
-
-
-
-
-
 
 
 
@@ -115,8 +105,10 @@ function drawTiledBackground() {
 
 function distance_to_storm(){
   let distance = dist(player.x, player.y, storm.x, storm.y);
-  if (distance + player.r > storm.r) {
-    player.hp -= 0.5; 
+  let currentTime = millis();
+  if (distance + player.r > storm.r && currentTime - player.lastDamageTime >= 1000) {
+    player.hp -= 1;
+    player.lastDamageTime = currentTime;
   }
 }
 

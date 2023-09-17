@@ -6,6 +6,7 @@ class Player {
     this.dy = velocity.y;
     this.hp = health.hp; 
     this.r = 10
+    this.lastDamageTime = millis();
 
     this.movingRight = false;
     this.movingLeft = false;
