@@ -14,16 +14,29 @@ class Player {
   }
 
   display() {
+    noStroke(); 
     fill("green")
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 
-  movement() {
-  
-    
-  }
+  boundry() {
+    if (this.movingRight && this.x + this.r < width) {
+        this.x += this.dx;
+    }
+    if (this.movingLeft && this.x - this.r > 0) {
+        this.x -= this.dx;
+    }
+    if (this.movingUp && this.y - this.r > 0) {
+        this.y -= this.dy;
+    }
+    if (this.movingDown && this.y + this.r < height) {
+        this.y += this.dy;
+    }
+}
+
 
   update() {
+
     if (this.movingRight) {
       this.x += this.dx;
     }
@@ -57,7 +70,7 @@ class Storm {
 
   display() {
     stroke(255, 0, 0);
-    fill(255, 0, 0, 10);
+    fill(255, 0, 0, 0);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 

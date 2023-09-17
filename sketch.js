@@ -47,10 +47,10 @@ function draw() {
   background(220);
   
   distance_to_storm(); 
+  player.boundry(); 
   player.display();
   storm.display();
   storm.shrink();
-  player.movement();
   player.update();
   print(player.hp);
 }
