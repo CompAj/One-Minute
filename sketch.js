@@ -24,26 +24,47 @@ function setup() {
     velocity: {
       x: 3,
       y: 3,
-    }
-  }); 
-  storm = new Storm(width,height);
+    },
+
+    health: {
+      hp:1000,
+    },
+  });
+
+
+  storm = new Storm({
+    position: {
+      x: width / 2,  
+      y: height / 2,
+    },
+    radius: 1000
+  });
+  
 }
 
 
 function draw() {
-  background(220); 
+  background(220);
+  
+  distance_to_storm(); 
+  player.display();
+  storm.display();
+  storm.shrink();
   player.movement();
   player.update();
-  player.display();
-  storm.storm_check(); 
-  storm.shrink(); 
-  //storm.display();
+  print(player.hp);
 }
+
+
 
 
 function distance_to_storm(){
-
+  let distance = dist(player.x, player.y, storm.x, storm.y);
+  if (distance + player.r > storm.r) {
+    player.hp -= 0.5; 
+  }
 }
+
 
 function keyPressed() {
   if (key == 'w') {
@@ -74,3 +95,4 @@ function keyReleased() {
     player.movingRight = false;
   }
 }
+
