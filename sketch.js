@@ -6,7 +6,7 @@ class Player {
     this.direction = createVector(0, 0);
     this.acceleration = 1;
     this.topSpeed = 5;
-    this.weaponAngle = PI/2
+    this.weaponAngle = random(0, 2*PI)
     this.weaponPos = createVector(0,0);
     this.weaponBasePos = createVector(0, 0);
     this.reach = 40
@@ -18,17 +18,50 @@ class Player {
     this.left = left;
     this.right = right;
     this.shoot = shoot;
-    this.immune = false;
+    this.immune = true;
+    this.weaponRadius = 12;
+    this.weaponSpin = -1;
+    this.spinImmune = false;
+    this.dead = false;
+
+    setTimeout(() => {
+      this.immune = false;
+    }, 200);
   }
   
   display() {
     circle(this.pos.x, this.pos.y, this.radius*2);
     line(this.weaponPos.x, this.weaponPos.y, this.weaponBasePos.x, this.weaponBasePos.y);
-    text(players[0].health, this.pos.x, this.pos.y)
+    circle(this.weaponPos.x, this.weaponPos.y, this.weaponRadius*2);
+    text(this.health, this.pos.x, this.pos.y)
+    //circle(lerp(this.weaponPos.x, this.weaponBasePos.x, 0.5), lerp(this.weaponPos.y, this.weaponBasePos.y, 0.5), this.weaponRadius*2)
   }
   
   tickHealth() {
     this.health --;
+    if (this.health < 0) {
+      this.health = 0;
+      this.dead = true;
+    }
+  }
+
+  checkCollisions(otherPlayer) {
+    if (this.weaponPos.dist(otherPlayer.weaponPos) < this.weaponRadius + otherPlayer.weaponRadius && ! this.spinImmune) {
+      this.weaponSpin *= -1
+      this.spinImmune = true;
+      setTimeout(() => {
+        this.spinImmune = false;
+      }, 100);
+    }
+
+    if (this.weaponPos.dist(otherPlayer.pos) < this.weaponRadius + otherPlayer.radius && ! this.immune) {
+      this.health += 5;
+      otherPlayer.health -= 5;
+      this.immune = true;
+      setTimeout(() => {
+        this.immune = false;
+      }, 1000);
+    }
   }
   
   update() {
@@ -52,13 +85,12 @@ class Player {
 
     //Out of Bounds
     if (sqrt(sq(this.pos.x) + sq(this.pos.y)) > arenaRadius + this.radius) {
-      this.pos.set(0, 0)
       this.health = 0;
     }
 
     //Weapon Mechanics
     if (! this.throwing) {
-      this.weaponAngle -= PI / 48
+      this.weaponAngle += PI / 24 * this.weaponSpin
       this.weaponPos.x = this.pos.x + cos(this.weaponAngle)*(this.reach + this.radius);
       this.weaponPos.y = this.pos.y - sin(this.weaponAngle)*(this.reach + this.radius);
     }
@@ -68,7 +100,6 @@ class Player {
     }
     this.weaponBasePos.x = this.weaponPos.x - cos(this.weaponAngle)*(this.reach);
     this.weaponBasePos.y = this.weaponPos.y + sin(this.weaponAngle)*(this.reach);
-
   }
 
   checkInput() {
@@ -87,11 +118,14 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   textAlign(CENTER);
   textSize(15)
-  players.push(new Player(0, 0, 87, 83, 65, 68, 16)); //w s a d Lshift
-  players.push(new Player(0, height/4)) // training dummy
+  players.push(new Player(0, 0, 87, 83, 65, 68, 32)); //w s a d space
+  players.push(new Player(0, height/4, 38, 40, 37, 39, 16)) // training dummy upArrow downArrow leftArrow rightArrow Rshift
   arenaRadius = height/2
   
   setInterval(tickAllHealth, 1000)
+
+  console.log("Player 1: WASD move, space to throw")
+  console.log("Player 2 (shit controls): OKL; move, Rshift to throw")
 }
 
 function draw() {
@@ -107,7 +141,7 @@ function draw() {
 
   circle(0, 0, arenaRadius*2)
 
-  checkCollisions()
+  checkAllCollisions()
 
   for (let somePlayer of players) {
     somePlayer.checkInput();
@@ -117,19 +151,20 @@ function draw() {
 }
 
 function tickAllHealth() {
-  for (let somePlayer of players) {
-    somePlayer.tickHealth()
-    console.log(somePlayer.health)
+  for (let i = 0; i < players.length; i++) {
+    players[i].tickHealth();
+    if (players[i].dead) {
+      players.splice(i, 1);
+    }
   }
 }
 
-function checkCollisions() {
+function checkAllCollisions() {
   for (let somePlayer of players) {
     for (let otherPlayer of players) {
-      if (otherPlayer === somePlayer) {
-        break;
+      if (somePlayer !== otherPlayer) {
+        somePlayer.checkCollisions(otherPlayer);
       }
-      
     }
   }
 }
