@@ -15,7 +15,6 @@ class Player {
 
   display() {
     fill("green")
-    // circle(this.x, this.y, this.r); 
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 
@@ -57,8 +56,8 @@ class Storm {
   }
 
   display() {
-    fill("red"); 
-    // circle(this.x/2, this.y/2, this.r); 
+    stroke(255, 0, 0);
+    fill(255, 0, 0, 10);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 
