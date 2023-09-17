@@ -53,13 +53,11 @@ class Storm {
     this.x = position.x; 
     this.y = position.y; 
     this.r = radius;
-    this.red = 255;
-    this.green = 255; 
-    this.blue = 255; 
   }
 
   display() {
-    stroke(random(0,this.red), random(0,this.green), random(0,this.blue));
+    stroke(255,0,0);
+    strokeWeight(5); 
     fill(255, 0, 0, 0);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
@@ -68,5 +66,15 @@ class Storm {
     if (this.r > 100){
       this.r -= 1; 
     }
+  }
+}
+
+
+
+
+class PowerUps {
+  constructor(position) {
+    this.x = position.x; 
+    this.y = position.y; 
   }
 }

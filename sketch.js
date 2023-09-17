@@ -8,7 +8,8 @@
 
 
 let player;
-let storm; 
+let storm;
+let powerups; 
 
 
 
@@ -40,6 +41,14 @@ function setup() {
     radius: width
   });
   
+
+
+  powerups = new PowerUps({
+    position: {
+      x:0,
+      y:0,
+    }
+  }); 
 }
 
 
